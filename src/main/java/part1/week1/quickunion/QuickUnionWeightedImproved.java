@@ -3,18 +3,21 @@ package part1.week1.quickunion;
 import java.util.Arrays;
 import java.util.stream.IntStream;
 
-public class QuickUnion implements FindUnionProblem {
+public class QuickUnionWeightedImproved implements FindUnionProblem {
 
 	private int[] roots;
+	private int[] size;
 
-	public QuickUnion(final int count) {
+	public QuickUnionWeightedImproved(final int count) {
 
 		this.roots = IntStream.range(0, count).toArray();
+		this.size = IntStream.iterate(1, i -> 1).limit(count).toArray();
 	}
 
 	public int root(int node) {
 
 		while (node != roots[node]) {
+			roots[node] = roots[roots[node]];
 			node = roots[node];
 		}
 		return node;
@@ -24,11 +27,13 @@ public class QuickUnion implements FindUnionProblem {
 
 		int rootA = root(a);
 		int rootB = root(b);
-		if (rootA == rootB) {
-			return;
+		if (size[rootA] < size[rootB]) {
+			roots[rootA] = rootB;
+			size[rootB] += size[rootA];
+		} else {
+			roots[rootB] = rootA;
+			size[rootA] += size[rootB];
 		}
-
-		roots[rootA] = rootB;
 	}
 
 	public boolean connected(final int a, final int b) {
@@ -41,4 +46,5 @@ public class QuickUnion implements FindUnionProblem {
 
 		return Arrays.toString(roots);
 	}
+
 }

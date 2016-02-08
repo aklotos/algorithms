@@ -5,38 +5,35 @@ import java.util.stream.IntStream;
 
 public class QuickFind implements FindUnionProblem {
 
-	private int[] keys;
+	private int[] ids;
 
 	public QuickFind(final int count) {
 
-		this.keys = IntStream.range(0, count).toArray();
-		//        System.out.println(this.toString());
+		this.ids = IntStream.range(0, count).toArray();
 	}
 
 	public void union(final int a, final int b) {
 
-		if (keys[a] == keys[b]) {
+		if (ids[a] == ids[b]) {
 			return;
 		}
 
-		int keyA = keys[a];
-		for (int i = 0; i < keys.length; i++) {
-			if (keys[i] == keyA) {
-				keys[i] = keys[b];
+		int keyA = ids[a];
+		for (int i = 0; i < ids.length; i++) {
+			if (ids[i] == keyA) {
+				ids[i] = ids[b];
 			}
 		}
-
-		//        System.out.println(this.toString());
 	}
 
 	public boolean connected(final int a, final int b) {
 
-		return this.keys[a] == this.keys[b];
+		return this.ids[a] == this.ids[b];
 	}
 
 	@Override
 	public String toString() {
 
-		return Arrays.toString(keys);
+		return Arrays.toString(ids);
 	}
 }

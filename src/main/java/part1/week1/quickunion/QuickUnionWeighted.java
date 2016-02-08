@@ -1,15 +1,22 @@
+/*
+ * (c) Copyright 2016 EVRYTHNG Ltd London / Zurich
+ * www.evrythng.com
+ */
+
 package part1.week1.quickunion;
 
 import java.util.Arrays;
 import java.util.stream.IntStream;
 
-public class QuickUnion implements FindUnionProblem {
+public class QuickUnionWeighted implements FindUnionProblem {
 
 	private int[] roots;
+	private int[] size;
 
-	public QuickUnion(final int count) {
+	public QuickUnionWeighted(final int count) {
 
 		this.roots = IntStream.range(0, count).toArray();
+		this.size = IntStream.iterate(1, i -> 1).limit(count).toArray();
 	}
 
 	public int root(int node) {
@@ -24,11 +31,13 @@ public class QuickUnion implements FindUnionProblem {
 
 		int rootA = root(a);
 		int rootB = root(b);
-		if (rootA == rootB) {
-			return;
+		if (size[rootA] < size[rootB]) {
+			roots[rootA] = rootB;
+			size[rootB] += size[rootA];
+		} else {
+			roots[rootB] = rootA;
+			size[rootA] += size[rootB];
 		}
-
-		roots[rootA] = rootB;
 	}
 
 	public boolean connected(final int a, final int b) {
