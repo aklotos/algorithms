@@ -2,6 +2,7 @@
  * (c) Copyright 2016 EVRYTHNG Ltd London / Zurich
  * www.evrythng.com
  */
+
 package part1.week1.quickunion.assignment;
 
 import edu.princeton.cs.algs4.StdRandom;
@@ -63,8 +64,8 @@ public class PercolationStats {
 		int T = Integer.valueOf(args[1]);
 
 		PercolationStats ps = new PercolationStats(N, T);
-		System.out.println("mean\t\t\t\t= " + ps.mean());
-		System.out.println("stddev\t\t\t\t= " + ps.stddev());
+		System.out.println("mean\t\t\t\t\t= " + ps.mean());
+		System.out.println("stddev\t\t\t\t\t= " + ps.stddev());
 		System.out.println("95% confidence interval\t= " + ps.confidenceLo() + ", " + ps.confidenceHi());
 	}
 }
