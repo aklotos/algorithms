@@ -2,13 +2,11 @@
  * (c) Copyright 2016 EVRYTHNG Ltd London / Zurich
  * www.evrythng.com
  */
-
 package part1.week1.quickunion.assignment;
 
 import edu.princeton.cs.algs4.StdRandom;
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 
-import java.util.Arrays;
 import java.util.stream.IntStream;
 
 public class Percolation {
@@ -20,6 +18,7 @@ public class Percolation {
 	private final WeightedQuickUnionUF unionFind;
 
 	public Percolation(int N) {
+
 		if (N < 0) {
 			throw new IllegalArgumentException("N < 0");
 		}
@@ -31,6 +30,23 @@ public class Percolation {
 		this.sites = IntStream.iterate(0, i -> 0).limit(N * N + 2).toArray();
 		this.sites[top] = 1;
 		this.sites[bottom] = 1;
+	}
+
+	public static void main(String[] args) {
+
+		int N = 1000;
+		Percolation p = new Percolation(N);
+		int opened = 0;
+		while (!p.percolates()) {
+			int i = StdRandom.uniform(1, N + 1);
+			int j = StdRandom.uniform(1, N + 1);
+
+			if (!p.isOpen(i, j)) {
+				p.open(i, j);
+				opened++;
+			}
+		}
+		System.out.println("p.percolationProbability() = " + (double) opened / (N * N));
 	}
 
 	public void open(final int i, final int j) {
@@ -66,10 +82,12 @@ public class Percolation {
 	}
 
 	private int index(final int i, final int j) {
+
 		return (i - 1) * N + j;
 	}
 
 	public boolean isOpen(final int i, final int j) {
+
 		if (i < 1 || i > N || j < 1 || j > N) {
 			throw new IndexOutOfBoundsException(String.format("i: %d, j: %d must belong [1..%d]", i, j, this.N));
 		}
@@ -78,29 +96,13 @@ public class Percolation {
 	}
 
 	public boolean isFull(final int i, final int j) {
+
 		return unionFind.connected(index(i, j), top);
 	}
 
 	public boolean percolates() {
+
 		return unionFind.connected(top, bottom);
-	}
-
-	public double percolationProbability() {
-		return (double) Arrays.stream(this.sites).sum() / (this.N * this.N);
-	}
-
-	public static void main(String[] args) {
-
-		int N = 1000;
-		Percolation p = new Percolation(N);
-
-		while (!p.percolates()) {
-			int i = StdRandom.uniform(1, N + 1);
-			int j = StdRandom.uniform(1, N + 1);
-
-			p.open(i, j);
-		}
-		System.out.println("p.percolationProbability() = " + p.percolationProbability());
 	}
 
 }

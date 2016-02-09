@@ -24,13 +24,17 @@ public class PercolationStats {
 
 		for (int k = 0; k < T; k++) {
 			Percolation p = new Percolation(N);
+			int opened = 0;
 			while (!p.percolates()) {
 				int i = StdRandom.uniform(1, N + 1);
 				int j = StdRandom.uniform(1, N + 1);
 
-				p.open(i, j);
+				if (!p.isOpen(i, j)) {
+					p.open(i, j);
+					opened++;
+				}
 			}
-			this.probabilities[k] = p.percolationProbability();
+			this.probabilities[k] = (double) opened / (N * N);
 		}
 	}
 
