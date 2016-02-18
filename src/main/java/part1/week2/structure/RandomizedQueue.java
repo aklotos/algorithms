@@ -87,8 +87,8 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 
         int index = StdRandom.uniform(size);
         Item item = queue[index];
-        queue[index] = queue[size - 1];
-        queue[--size] = null;
+        queue[index] = queue[--size];
+        queue[size] = null;
         return item;
     }
 
@@ -114,11 +114,15 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     public Iterator<Item> iterator() {
 
         Item[] items = (Item[]) new Object[size];
+        boolean[] used = new boolean[size];
         for (int i = 0; i < size; i++) {
-            items[i] = queue[i];
-        }
-        for (int i = 0; i < items.length; i++) {
-            swap(items, StdRandom.uniform(items.length), StdRandom.uniform(items.length));
+            int index;
+            do {
+                index = StdRandom.uniform(size);
+            } while (used[index]);
+
+            used[index] = true;
+            items[i] = queue[index];
         }
 
         return new RandomIterator<>(items);
