@@ -31,7 +31,7 @@ public class MergeSort {
 		merge(array, temp, low, mid, high);
 	}
 
-	private static <T extends Comparable<T>> void merge(final T[] array, final T[] temp, final int low, final int mid,
+	public static <T extends Comparable<T>> void merge(final T[] array, final T[] temp, final int low, final int mid,
 	                                             final int high) {
 		System.arraycopy(array, low, temp, low, high - low + 1);
 

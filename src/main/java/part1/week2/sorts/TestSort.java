@@ -2,6 +2,7 @@ package part1.week2.sorts;
 
 import edu.princeton.cs.algs4.StdRandom;
 import org.junit.Test;
+import part1.week3.sorts.BottomUpMergeSort;
 import part1.week3.sorts.MergeSort;
 
 import java.util.Arrays;
@@ -14,7 +15,7 @@ public class TestSort {
 	@Test
 	public void testSorts() throws InstantiationException, IllegalAccessException {
 
-		final int COUNT = 10_000;
+		final int COUNT = 1_000_000;
 
 		Integer[] array = createRandom(COUNT);
 		long bubbleTime = measureTime(array, BubbleSort::sort);
@@ -35,6 +36,10 @@ public class TestSort {
 		array = createRandom(COUNT);
 		long mergeTime = measureTime(array, MergeSort::sort);
 		System.out.println("checkSorted = " + checkSorted(array) + "\t\tmergeTime = " + mergeTime + " ms");
+
+		array = createRandom(COUNT);
+		long bottomUpMergeTime = measureTime(array, BottomUpMergeSort::sort);
+		System.out.println("checkSorted = " + checkSorted(array) + "\t\tbottomUpMergeTime = " + bottomUpMergeTime + " ms");
 	}
 
 	private Integer[] createRandom(final int count) {
