@@ -1,17 +1,22 @@
 package part1.week2.sorts;
 
-public class InsertionSort implements SortAlgorithm {
+public class InsertionSort {
 
-    @Override
-    public <T extends Comparable<T>> void sort(T[] array) {
-        for (int i = 1; i < array.length; i++) {
-            for (int j = i; j > 0; j--) {
-                if (array[j - 1].compareTo(array[j]) > 0) {
-                    swap(array, j - 1, j);
-                } else {
-                    break;
-                }
-            }
-        }
-    }
+	public static <T extends Comparable<T>> void sort(final T[] array, final int low, final int high) {
+
+		for (int i = low + 1; i <= high; i++) {
+			for (int j = i; j > low; j--) {
+				if (array[j - 1].compareTo(array[j]) > 0) {
+					SortUtils.swap(array, j - 1, j);
+				} else {
+					break;
+				}
+			}
+		}
+	}
+
+	public static <T extends Comparable<T>> void sort(final T[] array) {
+		sort(array, 0, array.length - 1);
+	}
+
 }
