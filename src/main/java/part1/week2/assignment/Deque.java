@@ -1,4 +1,4 @@
-package part1.week2.structure;
+package part1.week2.assignment;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;

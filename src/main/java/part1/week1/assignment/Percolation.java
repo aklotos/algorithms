@@ -1,4 +1,4 @@
-package part1.week1.quickunion.assignment;
+package part1.week1.assignment;
 
 import edu.princeton.cs.algs4.StdRandom;
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;

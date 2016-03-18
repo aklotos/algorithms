@@ -1,4 +1,4 @@
-package part1.week2.structure;
+package part1.week2.assignment;
 
 import edu.princeton.cs.algs4.StdRandom;
 
